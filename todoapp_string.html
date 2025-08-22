@@ -1,0 +1,107 @@
+<html>
+
+<head>
+    <title>form using Array</title>
+</head>
+
+<body>
+    <h1><b>To Do List</h1>
+   
+    <input id="inputText" value="" name="notes" Placeholder="Add Notes" ></input>
+    <input type="button" id="btn" value="Add" onclick="add()"></input>
+
+    <div id="mydiv"> </div>
+
+
+    <script>
+
+        var arr = [];
+        var editindex;
+        function disp() {
+            var str = `<table id="table" border="1" width=300px>
+            <tr>
+            <th>My Notes</th>
+            <th>Action</th>
+            </tr>`;
+            for (i = 0; i < arr.length; i++) {
+                str += `
+                <tr>
+                <td>${arr[i]}</td>
+                <td><button class="delcol" onclick="del(${i})">Delete </button></td>
+                    <td><button class="edit" onclick="edit(${i})">Edit </button></td>
+
+                </tr>`;
+               
+            }
+             str+= `</table>`;
+            // localStorage.setItem('arr[i]:input.value','arr[i]:i');
+            var c= localStorage.setItem("adding value + i:" , input.value);
+            console.log(c);
+             document.getElementById("mydiv").innerHTML=str;
+            
+        }
+       
+     
+        var input= document.getElementById("inputText");
+
+        function add(){
+           
+           if(btn.value== "Add" ){
+            var value = input.value.trim();
+
+             if(value==''){
+                alert("enter notes please");
+            }
+                else{
+            arr.unshift(value);
+           
+            input.value = ''; 
+
+                }
+            }
+           
+              else if(btn.value == "Edit"){
+                arr[editindex]  = input.value;
+                btn.value = "Add";
+                
+
+            }   input.value='';     
+            disp();
+
+       
+    } 
+             
+ 
+    function del(index){
+       if(confirm("Are you sure?")){
+        arr.splice(index,1);
+        disp();
+       }
+       
+
+    }
+     function edit(index){
+        btn.value = "Edit";
+        input.value = arr[index];
+        editindex= index;
+
+        console.log(input.value);
+        }
+
+        function enter(e){
+
+            if(event.key === "Enter")
+                document.getElementById("btn").click();
+           
+           disp();
+        }
+        input.addEventListener("keypress",enter);
+    
+
+    disp();
+
+    </script>
+
+</body>
+
+</html>
